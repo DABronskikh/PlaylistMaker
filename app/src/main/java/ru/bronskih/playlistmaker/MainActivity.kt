@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val searchClickListener: View.OnClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val displaySearch = Intent(this@MainActivity, MediaLibraryActivity::class.java)
+                val displaySearch = Intent(this@MainActivity, SearchActivity::class.java)
                 startActivity(displaySearch)
             }
         }

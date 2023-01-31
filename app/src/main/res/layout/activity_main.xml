@@ -33,7 +33,7 @@
         app:cornerRadius="@dimen/medium_radius"
         app:icon="@drawable/ic_search"
         app:iconGravity="textStart"
-        app:iconPadding="8dp"
+        app:iconPadding="@dimen/medium_padding"
         app:iconTint="@color/main_btn_text" />
 
     <Button
@@ -50,7 +50,7 @@
         app:cornerRadius="@dimen/medium_radius"
         app:icon="@drawable/ic_library"
         app:iconGravity="textStart"
-        app:iconPadding="8dp"
+        app:iconPadding="@dimen/medium_padding"
         app:iconTint="@color/main_btn_text" />
 
     <Button
@@ -67,8 +67,7 @@
         app:cornerRadius="@dimen/medium_radius"
         app:icon="@drawable/ic_settings"
         app:iconGravity="textStart"
-        app:iconPadding="8dp"
+        app:iconPadding="@dimen/medium_padding"
         app:iconTint="@color/main_btn_text" />
-
 
 </LinearLayout>
