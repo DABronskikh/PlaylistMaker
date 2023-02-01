@@ -37,7 +37,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:drawableEnd="@drawable/ic_share"
@@ -51,7 +50,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:drawableEnd="@drawable/ic_support"
@@ -65,7 +63,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:drawableEnd="@drawable/ic_arrow_forward"
