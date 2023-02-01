@@ -27,51 +27,53 @@
     <androidx.appcompat.widget.SwitchCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
         android:text="@string/dark_theme"
         android:textColor="@color/black"
         android:textSize="@dimen/settings_text_size" />
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:layout_gravity="start"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_share"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
         android:text="@string/share_app"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/ic_share"
-        app:iconGravity="end"
-        app:iconTint="@color/icon" />
+        android:textSize="@dimen/settings_text_size" />
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:layout_gravity="start"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_support"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
         android:text="@string/write_to_support"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/ic_support"
-        app:iconGravity="end"
-        app:iconTint="@color/icon" />
+        android:textSize="@dimen/settings_text_size" />
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:layout_gravity="start"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
         android:text="@string/user_agreement"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/ic_arrow_forward"
-        app:iconGravity="end"
-        app:iconTint="@color/icon" />
+        android:textSize="@dimen/settings_text_size" />
 
 </LinearLayout>
