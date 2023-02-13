@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainBackground">
+        <item name="android:background">@color/yp_blue</item>
+    </style>
+
+    <style name="MainMenuButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">@color/yp_white</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textSize">@dimen/primary_text_size</item>
+        <item name="cornerRadius">@dimen/medium_radius</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/medium_padding</item>
+        <item name="iconTint">@color/yp_black</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="SettingsToolbar">
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="SettingsMenuButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/medium_padding</item>
+        <item name="android:paddingHorizontal">@dimen/settings_horizontal_padding</item>
+        <item name="android:paddingVertical">@dimen/settings_vertical_padding</item>
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textSize">@dimen/settings_text_size</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="formSearchIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:tint">@color/yp_text_gray</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">10dp</item>
+    </style>
+
+</resources>

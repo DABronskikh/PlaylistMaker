@@ -5,72 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SettingsActivity">
+    tools:context=".activity.SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settings_toolbar"
+        android:id="@+id/settingsToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginBottom="24dp"
         app:navigationIcon="@drawable/ic_arrow_back">
 
         <TextView
+            style="@style/SettingsToolbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/ys_display_medium"
             android:gravity="center_vertical"
-            android:text="@string/settings"
-            android:textColor="@color/title"
+            android:text="@string/settings__title"
             android:textSize="@dimen/primary_text_size" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SwitchCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        android:paddingHorizontal="@dimen/settings_horizontal_padding"
-        android:paddingVertical="@dimen/settings_vertical_padding"
-        android:text="@string/dark_theme"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size" />
+        style="@style/SettingsMenuButton"
+        android:text="@string/settings__dark_theme" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+        android:id="@+id/shareApp"
+        style="@style/SettingsMenuButton"
         android:drawableEnd="@drawable/ic_share"
-        android:drawablePadding="@dimen/medium_padding"
-        android:paddingHorizontal="@dimen/settings_horizontal_padding"
-        android:paddingVertical="@dimen/settings_vertical_padding"
-        android:text="@string/share_app"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size" />
+        android:text="@string/settings__share_app" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+        android:id="@+id/support"
+        style="@style/SettingsMenuButton"
         android:drawableEnd="@drawable/ic_support"
-        android:drawablePadding="@dimen/medium_padding"
-        android:paddingHorizontal="@dimen/settings_horizontal_padding"
-        android:paddingVertical="@dimen/settings_vertical_padding"
-        android:text="@string/write_to_support"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size" />
+        android:text="@string/settings__write_to_support" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+        android:id="@+id/userAgreement"
+        style="@style/SettingsMenuButton"
         android:drawableEnd="@drawable/ic_arrow_forward"
-        android:drawablePadding="@dimen/medium_padding"
-        android:paddingHorizontal="@dimen/settings_horizontal_padding"
-        android:paddingVertical="@dimen/settings_vertical_padding"
-        android:text="@string/user_agreement"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size" />
+        android:text="@string/settings__user_agreement" />
 
 </LinearLayout>
