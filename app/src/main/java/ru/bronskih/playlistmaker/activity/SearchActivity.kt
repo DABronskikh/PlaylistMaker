@@ -31,6 +31,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
+            AndroidUtils.hideKeyboard(it)
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -39,9 +40,6 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchQuery = p0.toString()
                 clearButton.visibility = clearButtonVisibility(p0)
-                if (clearButton.visibility == View.GONE) {
-                    currentFocus?.let { AndroidUtils.hideKeyboard(it) }
-                }
             }
 
             override fun afterTextChanged(p0: Editable?) {}

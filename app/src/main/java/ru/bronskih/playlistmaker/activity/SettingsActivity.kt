@@ -24,18 +24,17 @@ class SettingsActivity : AppCompatActivity() {
             val sherAppIntent = Intent(Intent.ACTION_SEND)
             sherAppIntent.type = "text/plain"
             sherAppIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.url__share_app))
-            val chosenIntent = Intent.createChooser(sherAppIntent, getString(R.string.url__share_app_hint));
+            val chosenIntent = Intent.createChooser(sherAppIntent, getString(R.string.url__share_app_hint))
 
             startActivity(chosenIntent)
         }
 
         btnSupport.setOnClickListener {
-            val emailIntent = Intent(
-                Intent.ACTION_SENDTO,
-                Uri.fromParts("mailto", getString(R.string.developer_email), null)
-            );
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_support_subject));
-            emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_support_text));
+            val emailIntent = Intent(Intent.ACTION_SENDTO)
+            emailIntent.data = Uri.parse("mailto:")
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.developer_email)))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_support_subject))
+            emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_support_text))
 
             startActivity(emailIntent);
         }

@@ -18,6 +18,7 @@
         android:paddingBottom="10dp"
         android:text="@string/main__title"
         android:textColor="@color/yp_white"
+        android:background="@null"
         android:textSize="@dimen/primary_text_size" />
 
     <Button
