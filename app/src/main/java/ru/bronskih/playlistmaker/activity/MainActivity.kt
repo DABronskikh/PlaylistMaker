@@ -1,10 +1,10 @@
-package ru.bronskih.playlistmaker
+package ru.bronskih.playlistmaker.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
+import ru.bronskih.playlistmaker.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,14 +15,10 @@ class MainActivity : AppCompatActivity() {
         val btnLibrary = findViewById<Button>(R.id.btnLibrary)
         val btnSettings = findViewById<Button>(R.id.btnSettings)
 
-        val searchClickListener: View.OnClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val displaySearch = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivity(displaySearch)
-            }
+        btnSearch.setOnClickListener {
+            val displaySearch = Intent(this, SearchActivity::class.java)
+            startActivity(displaySearch)
         }
-
-        btnSearch.setOnClickListener(searchClickListener)
 
         btnLibrary.setOnClickListener {
             val displayMediaLibrary = Intent(this, MediaLibraryActivity::class.java)
