@@ -13,11 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginBottom="24dp"
-        app:navigationIcon="@drawable/ic_arrow_back">
+        app:navigationIcon="@drawable/ic_arrow_back_24">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:text="@string/settings"
             android:textColor="@color/title"
@@ -46,7 +47,7 @@
         android:text="@string/share_app"
         android:textColor="@color/black"
         android:textSize="@dimen/settings_text_size"
-        app:drawableEndCompat="@drawable/ic_share" />
+        app:drawableEndCompat="@drawable/ic_share_24" />
 
     <TextView
         android:layout_width="match_parent"
@@ -59,7 +60,7 @@
         android:text="@string/write_to_support"
         android:textColor="@color/black"
         android:textSize="@dimen/settings_text_size"
-        app:drawableEndCompat="@drawable/ic_support" />
+        app:drawableEndCompat="@drawable/ic_support_24" />
 
     <TextView
         android:layout_width="match_parent"
@@ -72,6 +73,6 @@
         android:text="@string/user_agreement"
         android:textColor="@color/black"
         android:textSize="@dimen/settings_text_size"
-        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+        app:drawableEndCompat="@drawable/ic_arrow_forward_24" />
 
 </LinearLayout>
