@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="medium_radius">16dp</dimen>
+    <dimen name="primary_text_size">22sp</dimen>
+    <dimen name="settings_text_size">16sp</dimen>
+    <dimen name="settings_vertical_padding">21dp</dimen>
+    <dimen name="settings_horizontal_padding">16dp</dimen>
+    <dimen name="toolbar_height">56sp</dimen>
+</resources>

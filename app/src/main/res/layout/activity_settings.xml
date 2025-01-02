@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_24">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/settings"
+            android:textColor="@color/title"
+            android:textSize="@dimen/primary_text_size" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
+        android:text="@string/dark_theme"
+        android:textColor="@color/black"
+        android:textSize="@dimen/settings_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
+        android:text="@string/share_app"
+        android:textColor="@color/black"
+        android:textSize="@dimen/settings_text_size"
+        app:drawableEndCompat="@drawable/ic_share_24" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
+        android:text="@string/write_to_support"
+        android:textColor="@color/black"
+        android:textSize="@dimen/settings_text_size"
+        app:drawableEndCompat="@drawable/ic_support_24" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="@dimen/medium_padding"
+        android:paddingHorizontal="@dimen/settings_horizontal_padding"
+        android:paddingVertical="@dimen/settings_vertical_padding"
+        android:text="@string/user_agreement"
+        android:textColor="@color/black"
+        android:textSize="@dimen/settings_text_size"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_24" />
+
+</LinearLayout>
