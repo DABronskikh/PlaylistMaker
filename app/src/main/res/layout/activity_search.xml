@@ -1,10 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SearchActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_24">
+
+        <TextView
+            style="@style/SettingsToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_vertical"
+            android:text="@string/search__title"
+            android:textSize="@dimen/primary_text_size" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape"
+        android:minHeight="36dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/formSearchIcon"
+            android:paddingEnd="8dp"
+            android:src="@drawable/ic_et_search_16" />
+
+        <EditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="@dimen/medium_padding"
+            android:fontFamily="@font/ys_display_regular"
+            android:hint="@string/search__form_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/yp_black"
+            android:textColorHint="@color/yp_text_gray"
+            android:textSize="@dimen/search_text_size" />
+
+        <ImageView
+            android:id="@+id/clear_icon"
+            style="@style/formSearchIcon"
+            android:src="@drawable/ic_et_clear_16"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>
