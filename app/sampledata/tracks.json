@@ -1,0 +1,11 @@
+{
+  "comment": "Пример структуры Track",
+  "data": [
+    {
+      "trackName": "Smells Like Teen Spirit",
+      "artistName": "Nirvana",
+      "trackTime": "5:01",
+      "artworkUrl100": "@sample/tracks_artworkUrl100"
+    }
+  ]
+}

@@ -8,6 +8,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.mock.TrackMock
 import com.example.playlistmaker.util.AndroidUtils
 
 class SearchActivity : AppCompatActivity() {
@@ -46,6 +49,11 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
+
+        val recyclerViewTrackList = findViewById<RecyclerView>(R.id.recycler_view_track_list)
+        recyclerViewTrackList.layoutManager = LinearLayoutManager(this)
+        val trackAdapter = TrackAdapter(TrackMock.list)
+        recyclerViewTrackList.adapter = trackAdapter
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
