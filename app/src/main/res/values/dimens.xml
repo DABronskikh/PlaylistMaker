@@ -8,4 +8,6 @@
     <dimen name="settings_horizontal_padding">16dp</dimen>
     <dimen name="toolbar_height">56sp</dimen>
     <dimen name="search_text_size">16sp</dimen>
+    <dimen name="track_title_text_size">16sp</dimen>
+    <dimen name="track_subtitle_text_size">11sp</dimen>
 </resources>
