@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SearchActivity">
+    tools:context=".activity.SearchActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/search_toolbar"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_form_search"
         android:minHeight="36dp"
         android:orientation="horizontal">
 
@@ -50,8 +50,10 @@
             android:drawablePadding="@dimen/medium_padding"
             android:fontFamily="@font/ys_display_regular"
             android:hint="@string/search__form_hint"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/yp_black"
             android:textColorHint="@color/yp_text_gray"
             android:textSize="@dimen/search_text_size" />
@@ -67,9 +69,13 @@
         android:id="@+id/recycler_view_track_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
         android:clipToPadding="false"
+        android:paddingTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/track_view" />
+
+    <include
+        layout="@layout/content_placeholder"
+        android:visibility="gone" />
 
 </LinearLayout>

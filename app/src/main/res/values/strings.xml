@@ -19,6 +19,10 @@
     <!-- search -->
     <string name="search__title">Поиск</string>
     <string name="search__form_hint">Поиск</string>
+    <string name="search__placeholder_error_internet">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="search__placeholder_no_results">Ничего не нашлось</string>
+    <string name="search__placeholder_button">Обновить</string>
+
 
     <!-- settings -->
     <string name="settings__title">Настройки</string>
