@@ -86,23 +86,7 @@ class SearchActivity : AppCompatActivity() {
                     && tracklistSearchHistory.isNotEmpty()
                 ) View.VISIBLE else View.GONE
         }
-
-        val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                searchQuery = p0.toString()
-                clearButton.visibility = clearButtonVisibility(p0)
-
-                searchHistoryLayout.visibility =
-                    if (inputEditText.hasFocus()
-                        && p0?.isEmpty() == true
-                        && tracklistSearchHistory.isNotEmpty()
-                    ) View.VISIBLE else View.GONE
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        }
+        inputEditText.requestFocus()
 
         contentPlaceholderLayout = findViewById(R.id.content_placeholder)
         contentPlaceholderText = findViewById(R.id.content_placeholder__text)
@@ -138,6 +122,28 @@ class SearchActivity : AppCompatActivity() {
         }
 
         sharedPreferencesSearchHistory.registerOnSharedPreferenceChangeListener(listener)
+
+        val simpleTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                searchQuery = p0.toString()
+                clearButton.visibility = clearButtonVisibility(p0)
+
+                if (inputEditText.hasFocus() && p0?.isEmpty() == true && tracklistSearchHistory.isNotEmpty()) {
+                    searchHistoryLayout.visibility = View.VISIBLE
+                    recyclerViewTrackList.visibility = View.GONE
+                    hidePlaceholder()
+                    tracklist.clear()
+                    trackAdapter.notifyDataSetChanged()
+                } else {
+                    searchHistoryLayout.visibility = View.GONE
+                    recyclerViewTrackList.visibility = View.VISIBLE
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        }
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -186,6 +192,7 @@ class SearchActivity : AppCompatActivity() {
                             trackAdapter.notifyDataSetChanged()
                         } else {
                             recyclerViewTrackList.visibility = View.GONE
+                            searchHistoryLayout.visibility = View.GONE
                             showPlaceholder(
                                 getString(R.string.search__placeholder_no_results),
                                 R.drawable.ic_search_no_results_120
@@ -193,6 +200,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     } else {
                         recyclerViewTrackList.visibility = View.GONE
+                        searchHistoryLayout.visibility = View.GONE
                         showPlaceholder(
                             getString(R.string.search__placeholder_error_internet),
                             R.drawable.ic_error_internet_120,
@@ -203,6 +211,7 @@ class SearchActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                     recyclerViewTrackList.visibility = View.GONE
+                    searchHistoryLayout.visibility = View.GONE
                     showPlaceholder(
                         getString(R.string.search__placeholder_error_internet),
                         R.drawable.ic_error_internet_120,

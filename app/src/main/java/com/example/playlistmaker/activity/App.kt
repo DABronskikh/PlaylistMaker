@@ -2,6 +2,7 @@ package com.example.playlistmaker.activity
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.Constants
 
@@ -16,7 +17,7 @@ class App : Application() {
         super.onCreate()
         sharedPrefs = getSharedPreferences(Constants.PLAYLIST_MAKER_SETTINGS, MODE_PRIVATE)
 
-        darkTheme = sharedPrefs.getBoolean(Constants.DARK_THEME_KEY, false)
+        darkTheme = sharedPrefs.getBoolean(Constants.DARK_THEME_KEY, isDarkModeOn())
         switchTheme(darkTheme)
     }
 
@@ -32,6 +33,12 @@ class App : Application() {
                 AppCompatDelegate.MODE_NIGHT_NO
             }
         )
+    }
+
+    private fun isDarkModeOn(): Boolean {
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val isDarkModeOn = nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+        return isDarkModeOn
     }
 
 }
