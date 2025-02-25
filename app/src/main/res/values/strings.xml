@@ -22,7 +22,8 @@
     <string name="search__placeholder_error_internet">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="search__placeholder_no_results">Ничего не нашлось</string>
     <string name="search__placeholder_button">Обновить</string>
-
+    <string name="search__history_title">Вы искали</string>
+    <string name="search__history_button">Очистить историю</string>
 
     <!-- settings -->
     <string name="settings__title">Настройки</string>
