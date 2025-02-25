@@ -1,5 +1,6 @@
 package com.example.playlistmaker.activity
 
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,19 +16,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.playlistmaker.Constants
 import com.example.playlistmaker.R
 import com.example.playlistmaker.TrackAdapter
 import com.example.playlistmaker.TrackViewHolder
 import com.example.playlistmaker.data.Track
 import com.example.playlistmaker.data.TracksResponse
 import com.example.playlistmaker.service.RetrofitService
-import com.example.playlistmaker.service.TrackApiService
+import com.example.playlistmaker.service.SearchHistoryService
 import com.example.playlistmaker.util.AndroidUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
@@ -37,16 +37,30 @@ class SearchActivity : AppCompatActivity() {
 
     private var searchQuery = ""
     private val tracklist: MutableList<Track> = mutableListOf()
+    private var tracklistSearchHistory: MutableList<Track> = mutableListOf()
     private lateinit var trackAdapter: Adapter<TrackViewHolder>
-    private lateinit var contentPlaceholder: LinearLayout
+    private lateinit var searchHistoryTrackAdapter: Adapter<TrackViewHolder>
+    private lateinit var contentPlaceholderLayout: LinearLayout
     private lateinit var contentPlaceholderText: TextView
     private lateinit var contentPlaceholderImage: ImageView
     private lateinit var contentPlaceholderButton: Button
     private lateinit var recyclerViewTrackList: RecyclerView
+    private lateinit var searchHistoryLayout: LinearLayout
+    private lateinit var searchHistoryButton: Button
+    private lateinit var searchHistoryService: SearchHistoryService
+    private lateinit var searchHistoryTrackList: RecyclerView
+    private lateinit var listener: OnSharedPreferenceChangeListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        val sharedPreferencesSearchHistory =
+            getSharedPreferences(Constants.SEARCH_HISTORY, MODE_PRIVATE)
+        searchHistoryService =
+            SearchHistoryService(sharedPreferencesSearchHistory)
+        tracklistSearchHistory.addAll(searchHistoryService.getHistory())
+
 
         val toolbar = findViewById<Toolbar>(R.id.search_toolbar)
         toolbar.setNavigationOnClickListener {
@@ -65,18 +79,16 @@ class SearchActivity : AppCompatActivity() {
             hidePlaceholder()
         }
 
-        val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                searchQuery = p0.toString()
-                clearButton.visibility = clearButtonVisibility(p0)
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
+        searchHistoryLayout = findViewById(R.id.search_history)
+        inputEditText.setOnFocusChangeListener { view, hasFocus ->
+            searchHistoryLayout.visibility =
+                if (hasFocus
+                    && tracklistSearchHistory.isNotEmpty()
+                ) View.VISIBLE else View.GONE
         }
+        inputEditText.requestFocus()
 
-        contentPlaceholder = findViewById(R.id.content_placeholder)
+        contentPlaceholderLayout = findViewById(R.id.content_placeholder)
         contentPlaceholderText = findViewById(R.id.content_placeholder__text)
         contentPlaceholderImage = findViewById(R.id.content_placeholder__image)
         contentPlaceholderButton = findViewById(R.id.content_placeholder__button)
@@ -85,10 +97,53 @@ class SearchActivity : AppCompatActivity() {
             searchTracks(inputEditText.text.toString())
         }
 
+        searchHistoryButton = findViewById(R.id.search_history__button)
+        searchHistoryButton.setOnClickListener {
+            searchHistoryService.clear()
+            searchHistoryLayout.visibility = View.GONE
+        }
+
         recyclerViewTrackList = findViewById(R.id.recycler_view_track_list)
         recyclerViewTrackList.layoutManager = LinearLayoutManager(this)
-        trackAdapter = TrackAdapter(tracklist)
+        trackAdapter = TrackAdapter(tracklist, searchHistoryService)
         recyclerViewTrackList.adapter = trackAdapter
+
+        searchHistoryTrackList = findViewById(R.id.search_history__track_list)
+        searchHistoryTrackList.layoutManager = LinearLayoutManager(this)
+        searchHistoryTrackAdapter = TrackAdapter(tracklistSearchHistory, searchHistoryService)
+        searchHistoryTrackList.adapter = searchHistoryTrackAdapter
+
+        listener = OnSharedPreferenceChangeListener { sharedPreferences, key ->
+            if (key == Constants.SEARCH_HISTORY_TRACK_LIST_KEY) {
+                tracklistSearchHistory.clear()
+                tracklistSearchHistory.addAll(searchHistoryService.getHistory())
+                searchHistoryTrackAdapter.notifyDataSetChanged()
+            }
+        }
+
+        sharedPreferencesSearchHistory.registerOnSharedPreferenceChangeListener(listener)
+
+        val simpleTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                searchQuery = p0.toString()
+                clearButton.visibility = clearButtonVisibility(p0)
+
+                if (inputEditText.hasFocus() && p0?.isEmpty() == true && tracklistSearchHistory.isNotEmpty()) {
+                    searchHistoryLayout.visibility = View.VISIBLE
+                    recyclerViewTrackList.visibility = View.GONE
+                    hidePlaceholder()
+                    tracklist.clear()
+                    trackAdapter.notifyDataSetChanged()
+                } else {
+                    searchHistoryLayout.visibility = View.GONE
+                    recyclerViewTrackList.visibility = View.VISIBLE
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        }
 
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -137,6 +192,7 @@ class SearchActivity : AppCompatActivity() {
                             trackAdapter.notifyDataSetChanged()
                         } else {
                             recyclerViewTrackList.visibility = View.GONE
+                            searchHistoryLayout.visibility = View.GONE
                             showPlaceholder(
                                 getString(R.string.search__placeholder_no_results),
                                 R.drawable.ic_search_no_results_120
@@ -144,6 +200,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     } else {
                         recyclerViewTrackList.visibility = View.GONE
+                        searchHistoryLayout.visibility = View.GONE
                         showPlaceholder(
                             getString(R.string.search__placeholder_error_internet),
                             R.drawable.ic_error_internet_120,
@@ -154,6 +211,7 @@ class SearchActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                     recyclerViewTrackList.visibility = View.GONE
+                    searchHistoryLayout.visibility = View.GONE
                     showPlaceholder(
                         getString(R.string.search__placeholder_error_internet),
                         R.drawable.ic_error_internet_120,
@@ -165,13 +223,13 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showPlaceholder(text: String, imageResId: Int, showActionButton: Boolean = false) {
-        contentPlaceholder.visibility = View.VISIBLE
+        contentPlaceholderLayout.visibility = View.VISIBLE
         contentPlaceholderText.text = text
         contentPlaceholderImage.setImageResource(imageResId)
         contentPlaceholderButton.visibility = if (showActionButton) View.VISIBLE else View.GONE
     }
 
     private fun hidePlaceholder() {
-        contentPlaceholder.visibility = View.GONE
+        contentPlaceholderLayout.visibility = View.GONE
     }
 }

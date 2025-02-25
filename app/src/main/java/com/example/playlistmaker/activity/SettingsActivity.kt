@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import com.example.playlistmaker.R
 
@@ -16,6 +17,12 @@ class SettingsActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.settings_toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        val switcherTheme = findViewById<SwitchCompat>(R.id.theme_switcher)
+        switcherTheme.isChecked = (applicationContext as App).darkTheme
+        switcherTheme.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
         }
 
         val btnShareApp = findViewById<TextView>(R.id.share_app)
