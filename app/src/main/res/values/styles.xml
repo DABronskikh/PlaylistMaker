@@ -91,4 +91,32 @@
         <item name="android:textColor">@color/yp_black</item>
     </style>
 
+    <style name="AudioPlayer_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AudioPlayer_description_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">9dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/yp_text_gray</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="AudioPlayer_description_data">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
 </resources>

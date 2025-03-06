@@ -4,9 +4,13 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.Constants
 
 class App : Application() {
+
+    companion object {
+        const val PLAYLIST_MAKER_SETTINGS = "playlist_maker_settings"
+        const val DARK_THEME_KEY = "key_for_dark_theme"
+    }
 
     var darkTheme = false
         private set
@@ -15,16 +19,16 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        sharedPrefs = getSharedPreferences(Constants.PLAYLIST_MAKER_SETTINGS, MODE_PRIVATE)
+        sharedPrefs = getSharedPreferences(PLAYLIST_MAKER_SETTINGS, MODE_PRIVATE)
 
-        darkTheme = sharedPrefs.getBoolean(Constants.DARK_THEME_KEY, isDarkModeOn())
+        darkTheme = sharedPrefs.getBoolean(DARK_THEME_KEY, isDarkModeOn())
         switchTheme(darkTheme)
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
         darkTheme = darkThemeEnabled
 
-        sharedPrefs.edit().putBoolean(Constants.DARK_THEME_KEY, darkThemeEnabled).apply()
+        sharedPrefs.edit().putBoolean(DARK_THEME_KEY, darkThemeEnabled).apply()
 
         AppCompatDelegate.setDefaultNightMode(
             if (darkThemeEnabled) {
