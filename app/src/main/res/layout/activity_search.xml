@@ -71,11 +71,16 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingTop="16dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/track_view" />
 
     <include
         layout="@layout/content_placeholder"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/search_history"
         android:visibility="gone" />
 
 </LinearLayout>

@@ -27,6 +27,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/theme_switcher"
         style="@style/SettingsMenuButton"
         android:text="@string/settings__dark_theme" />
 
