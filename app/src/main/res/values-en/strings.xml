@@ -18,4 +18,9 @@
     <string name="search__placeholder_button">Update</string>
     <string name="search__history_button">Clear the history</string>
     <string name="search__history_title">You were looking for</string>
+    <string name="audio_player__duration">Duration</string>
+    <string name="audio_player__collection_name">Collection name</string>
+    <string name="audio_player__release_year">Release year</string>
+    <string name="audio_player__primary_genre_name">Primary genre name</string>
+    <string name="audio_player__country">Country</string>
 </resources>

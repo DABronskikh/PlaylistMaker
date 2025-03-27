@@ -32,6 +32,13 @@
     <string name="settings__write_to_support">Написать в поддержку</string>
     <string name="settings__user_agreement">Пользовательское соглашение</string>
 
+    <!-- audio_player -->
+    <string name="audio_player__duration">Длительность</string>
+    <string name="audio_player__collection_name">Альбом</string>
+    <string name="audio_player__release_year">Год</string>
+    <string name="audio_player__primary_genre_name">Жанр</string>
+    <string name="audio_player__country">Страна</string>
+
     <!-- media_library -->
 
 </resources>

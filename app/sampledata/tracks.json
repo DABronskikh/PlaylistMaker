@@ -5,7 +5,11 @@
       "trackName": "Smells Like Teen Spirit",
       "artistName": "Nirvana",
       "trackTime": "5:01",
-      "artworkUrl100": "@sample/tracks_artworkUrl100"
+      "artworkUrl100": "@sample/tracks_artworkUrl100",
+      "collectionName": "Yesterday (Remastered 2009)",
+      "releaseYear": "1965",
+      "primaryGenreName": "Rock",
+      "country": "Великобритания"
     }
   ]
 }
