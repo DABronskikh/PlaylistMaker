@@ -3,6 +3,8 @@ package com.example.playlistmaker.activity
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -35,6 +38,9 @@ class SearchActivity : AppCompatActivity() {
         const val SEARCH_HISTORY = "playlist_maker_search_history"
         const val SEARCH_HISTORY_TRACK_LIST_KEY = "track_list_key"
         const val INTENT_TRACK = "TRACK"
+
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
     private var searchQuery = ""
@@ -48,9 +54,14 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryService: SearchHistoryService
     private lateinit var searchHistoryTrackList: RecyclerView
     private lateinit var listener: OnSharedPreferenceChangeListener
+    private lateinit var progressBar: ProgressBar
 
     private val trackAdapter = TrackAdapter { onClick(it) }
     private val searchHistoryTrackAdapter = TrackAdapter { onClick(it) }
+
+    private val searchRunnable = Runnable { searchRequest() }
+    private val handler = Handler(Looper.getMainLooper())
+    private var isClickAllowed = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +98,7 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.requestFocus()
 
+        progressBar = findViewById(R.id.progress_bar)
         contentPlaceholderLayout = findViewById(R.id.content_placeholder)
         contentPlaceholderText = findViewById(R.id.content_placeholder__text)
         contentPlaceholderImage = findViewById(R.id.content_placeholder__image)
@@ -136,6 +148,8 @@ class SearchActivity : AppCompatActivity() {
                     searchHistoryLayout.visibility = View.GONE
                     recyclerViewTrackList.visibility = View.VISIBLE
                 }
+
+                searchDebounce()
             }
 
             override fun afterTextChanged(p0: Editable?) {}
@@ -144,6 +158,7 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                handler.removeCallbacks(searchRunnable)
                 searchTracks(inputEditText.text.toString())
             }
             false
@@ -168,7 +183,18 @@ class SearchActivity : AppCompatActivity() {
         return if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
+    private fun searchRequest() {
+        if (searchQuery.isNotEmpty()) {
+            searchTracks(searchQuery)
+        }
+    }
+
     private fun searchTracks(text: String) {
+        recyclerViewTrackList.visibility = View.GONE
+        searchHistoryLayout.visibility = View.GONE
+        contentPlaceholderLayout.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+
         RetrofitService
             .getTrackApiService()
             .search(text)
@@ -177,6 +203,7 @@ class SearchActivity : AppCompatActivity() {
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>
                 ) {
+                    progressBar.visibility = View.GONE
                     if (response.isSuccessful) {
                         val tracksJson = response.body()?.results
 
@@ -206,6 +233,7 @@ class SearchActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                     recyclerViewTrackList.visibility = View.GONE
                     searchHistoryLayout.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     showPlaceholder(
                         getString(R.string.search__placeholder_error_internet),
                         R.drawable.ic_error_internet_120,
@@ -228,12 +256,30 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun onClick(track: Track) {
+        if (!clickDebounce()) {
+            return
+        }
+
         searchHistoryService.add(track)
 
         val intent = Intent(this, AudioPlayerActivity::class.java).apply {
             putExtra(INTENT_TRACK, Gson().toJson(track))
         }
         startActivity(intent)
+    }
+
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
 
 }
